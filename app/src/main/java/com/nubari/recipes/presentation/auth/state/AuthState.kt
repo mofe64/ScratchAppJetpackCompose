@@ -1,4 +1,4 @@
-package com.nubari.recipes.presentation.auth
+package com.nubari.recipes.presentation.auth.state
 
 data class AuthState(
     val isAuthenticated: Boolean = false,

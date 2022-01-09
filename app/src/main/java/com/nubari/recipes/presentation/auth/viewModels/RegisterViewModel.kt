@@ -4,12 +4,19 @@ import android.text.TextUtils
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.nubari.recipes.presentation.auth.events.RegistrationEvent
 import com.nubari.recipes.presentation.auth.state.InputState
 import com.nubari.recipes.presentation.auth.util.InputType
-import com.nubari.recipes.presentation.auth.events.LoginEvent
 
-class LoginViewModel : ViewModel() {
-    //    val TAG = "LoginViewModel"
+class RegisterViewModel : ViewModel() {
+
+    private val _fullName = mutableStateOf(
+        InputState(
+            type = InputType.TEXT
+        )
+    )
+    val fullName: State<InputState> = _fullName
+
     private val _email = mutableStateOf(
         InputState(
             type = InputType.EMAIL
@@ -24,32 +31,38 @@ class LoginViewModel : ViewModel() {
     )
     val password: State<InputState> = _password
 
-    fun createEvent(event: LoginEvent) {
-//        Log.i(TAG, "create event called")
+    fun createEvent(event: RegistrationEvent) {
         onEvent(event)
     }
 
-
-    private fun onEvent(event: LoginEvent) {
-//        Log.i(TAG, "onEvent called")
-//        Log.i(TAG, event.toString())
+    private fun onEvent(event: RegistrationEvent) {
         when (event) {
-            is LoginEvent.EnteredEmail -> {
+            is RegistrationEvent.EnteredName -> {
+                _fullName.value = fullName.value.copy(
+                    text = event.value
+                )
+            }
+            is RegistrationEvent.ChangedNameFocus -> {
+                _fullName.value = fullName.value.copy(
+                    isValid = validateInput(email.value.text, InputType.TEXT)
+                )
+            }
+            is RegistrationEvent.EnteredEmail -> {
                 _email.value = email.value.copy(
                     text = event.value
                 )
             }
-            is LoginEvent.ChangedEmailFocus -> {
+            is RegistrationEvent.ChangedEmailFocus -> {
                 _email.value = email.value.copy(
                     isValid = validateInput(email.value.text, InputType.EMAIL)
                 )
             }
-            is LoginEvent.EnteredPassword -> {
+            is RegistrationEvent.EnteredPassword -> {
                 _password.value = password.value.copy(
                     text = event.value
                 )
             }
-            is LoginEvent.ChangedPasswordFocus -> {
+            is RegistrationEvent.ChangedPasswordFocus -> {
                 _password.value = password.value.copy(
                     isValid = validateInput(email.value.text, InputType.PASSWORD)
                 )
@@ -58,8 +71,6 @@ class LoginViewModel : ViewModel() {
     }
 
     private fun validateInput(inputValue: String, inputType: InputType): Boolean {
-//        Log.i(TAG, "Validate called")
-//        Log.i(TAG,inputValue )
         return when (inputType) {
             InputType.EMAIL -> {
                 !TextUtils.isEmpty(inputValue) && android.util.Patterns.EMAIL_ADDRESS.matcher(

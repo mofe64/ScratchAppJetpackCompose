@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nubari.recipes.presentation.auth.AuthEvent
-import com.nubari.recipes.presentation.auth.AuthState
+import com.nubari.recipes.presentation.auth.events.AuthEvent
+import com.nubari.recipes.presentation.auth.state.AuthState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -34,7 +34,7 @@ class AuthViewModel : ViewModel() {
                     _state.value = state.value.copy(
                         isProcessing = true
                     )
-                    delay(5000)
+                    delay(3000)
                     _state.value = state.value.copy(
                         isProcessing = false,
                         isAuthenticated = true,
@@ -44,8 +44,12 @@ class AuthViewModel : ViewModel() {
             }
             is AuthEvent.Register -> {
                 viewModelScope.launch {
-                    delay(5000)
                     _state.value = state.value.copy(
+                        isProcessing = true
+                    )
+                    delay(3000)
+                    _state.value = state.value.copy(
+                        isProcessing = false,
                         isAuthenticated = true
                     )
 

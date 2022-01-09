@@ -1,6 +1,5 @@
 package com.nubari.recipes.presentation.auth.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.nubari.recipes.R
-import com.nubari.recipes.presentation.auth.AuthEvent
-import com.nubari.recipes.presentation.auth.LoginEvent
+import com.nubari.recipes.presentation.auth.events.AuthEvent
+import com.nubari.recipes.presentation.auth.events.LoginEvent
 import com.nubari.recipes.presentation.auth.viewModels.AuthViewModel
 import com.nubari.recipes.presentation.auth.viewModels.LoginViewModel
 import com.nubari.recipes.presentation.components.CustomTextInput
