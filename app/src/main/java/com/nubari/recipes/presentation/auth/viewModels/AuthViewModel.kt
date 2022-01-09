@@ -39,7 +39,6 @@ class AuthViewModel : ViewModel() {
                         isProcessing = false,
                         isAuthenticated = true,
                     )
-
                 }
             }
             is AuthEvent.Register -> {

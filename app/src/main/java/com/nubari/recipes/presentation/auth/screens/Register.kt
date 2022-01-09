@@ -21,10 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.nubari.recipes.R
 import com.nubari.recipes.presentation.auth.events.AuthEvent
-import com.nubari.recipes.presentation.auth.events.LoginEvent
 import com.nubari.recipes.presentation.auth.events.RegistrationEvent
 import com.nubari.recipes.presentation.auth.viewModels.AuthViewModel
-import com.nubari.recipes.presentation.auth.viewModels.LoginViewModel
 import com.nubari.recipes.presentation.auth.viewModels.RegisterViewModel
 import com.nubari.recipes.presentation.components.CustomTextInput
 import com.nubari.recipes.ui.theme.SubTextColor
@@ -44,7 +42,7 @@ fun Register(
     }
     val loading = authViewModel.state.value.isProcessing
     formValidity.value = emailState.isValid && passwordState.isValid
-    Scaffold(
+    com.google.accompanist.insets.ui.Scaffold(
         scaffoldState = scaffoldState
     ) {
         Column(
@@ -75,7 +73,8 @@ fun Register(
                         painter = painterResource(
                             id = R.drawable.ic_logo
                         ),
-                        contentDescription = "Scratch Logo"
+                        contentDescription = "Scratch Logo",
+                        modifier = Modifier.padding(top = 20.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(

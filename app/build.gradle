@@ -93,4 +93,12 @@ dependencies {
 
     //glide
     implementation "com.github.skydoves:landscapist-glide:1.4.5"
+
+    //accompanist library systemuicontroller
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.22.0-rc"
+
+    // accompanist library insets
+    implementation "com.google.accompanist:accompanist-insets:0.22.0-rc"
+    // insets-ui
+    implementation "com.google.accompanist:accompanist-insets-ui:0.22.0-rc"
 }

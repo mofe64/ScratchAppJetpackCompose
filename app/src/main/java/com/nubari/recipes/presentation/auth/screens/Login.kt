@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.accompanist.insets.statusBarsPadding
 import com.nubari.recipes.R
 import com.nubari.recipes.presentation.auth.events.AuthEvent
 import com.nubari.recipes.presentation.auth.events.LoginEvent
@@ -45,7 +46,8 @@ fun Login(
 //    Log.i(TAG, emailState.isValid.toString())
 //    Log.i(TAG, "password state")
 //    Log.i(TAG, passwordState.isValid.toString())
-    Scaffold(
+    // use inset ui lib inset aware scaffold
+    com.google.accompanist.insets.ui.Scaffold(
         scaffoldState = scaffoldState
     ) {
         Column(
@@ -57,7 +59,6 @@ fun Login(
                     .fillMaxWidth()
                     .fillMaxHeight(fraction = 0.37f)
                     .clip(RoundedCornerShape(0.dp, 0.dp, 100.dp, 0.dp))
-                    .background(color = Color.Blue), //TODO(remove blue bg)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.login_banner),
@@ -76,7 +77,8 @@ fun Login(
                         painter = painterResource(
                             id = R.drawable.ic_logo
                         ),
-                        contentDescription = "Scratch Logo"
+                        contentDescription = "Scratch Logo",
+                        modifier=Modifier.padding(top = 20.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
