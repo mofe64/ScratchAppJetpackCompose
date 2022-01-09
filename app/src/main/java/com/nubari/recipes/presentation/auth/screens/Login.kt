@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.nubari.recipes.R
+import com.nubari.recipes.presentation.auth.AuthEvent
 import com.nubari.recipes.presentation.auth.LoginEvent
 import com.nubari.recipes.presentation.auth.viewModels.AuthViewModel
 import com.nubari.recipes.presentation.auth.viewModels.LoginViewModel
@@ -39,6 +40,7 @@ fun Login(
     val formValidity = remember {
         mutableStateOf(true)
     }
+    val loading = authViewModel.state.value.isProcessing
     formValidity.value = emailState.isValid && passwordState.isValid
 //    Log.i(TAG, "email state")
 //    Log.i(TAG, emailState.isValid.toString())
@@ -138,7 +140,14 @@ fun Login(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        authViewModel.createEvent(
+                            AuthEvent.Login(
+                                emailState.text,
+                                passwordState.text
+                            )
+                        )
+                    },
                     modifier = Modifier
                         .clip(RoundedCornerShape(5.dp))
                         .fillMaxWidth()
@@ -147,27 +156,43 @@ fun Login(
                     contentPadding = PaddingValues(16.dp),
                     enabled = formValidity.value
                 ) {
-                    Text(
-                        text = "Login",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp
-                    )
+                    if (loading) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text(
+                            text = "Login",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
+                    }
+
                 }
                 Spacer(modifier = Modifier.height(25.dp))
-                Text(
-                    text = "New to Scratch ?",
-                    textAlign = TextAlign.Center,
-                    fontSize = 15.sp,
-                    color = SubTextColor
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                TextButton(onClick = { /*TODO*/ }) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
-                        text = "Create An Account Here",
-                        fontSize = 18.sp
+                        text = "New to Scratch ?",
+                        textAlign = TextAlign.Center,
+                        fontSize = 15.sp,
+                        color = SubTextColor,
                     )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    TextButton(onClick = {
+                        authViewModel.createEvent(
+                            AuthEvent.SwitchToRegister
+                        )
+                    }) {
+                        Text(
+                            text = "Create An Account Here",
+                            fontSize = 18.sp
+                        )
+                    }
                 }
-
             }
 
         }
