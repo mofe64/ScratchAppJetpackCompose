@@ -11,10 +11,10 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.nubari.recipes.presentation.auth.components.AuthenticationWrapper
 import com.nubari.recipes.presentation.auth.viewModels.AuthViewModel
+import com.nubari.recipes.presentation.util.ApplicationSwitch
 import com.nubari.recipes.ui.theme.RecipesTheme
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         //display content edge to edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             RecipesTheme {
                 // from the accompanist lib, gives us access to inset aware layout and inset values.
                 ProvideWindowInsets {
-                    AuthenticationWrapper(viewModel = viewModel)
+                    ApplicationSwitch()
                 }
 
             }
