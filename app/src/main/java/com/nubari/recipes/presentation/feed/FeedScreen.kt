@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
@@ -22,6 +23,7 @@ import com.nubari.recipes.domain.Meal
 import com.nubari.recipes.presentation.application.components.MainAppBar
 import com.nubari.recipes.presentation.components.NavigationBarAvoidingBox
 import com.nubari.recipes.presentation.feed.components.FeedCard
+import com.nubari.recipes.presentation.feed.viewModels.FeedViewModel
 
 @Composable
 fun AppBarTitle() {
@@ -36,7 +38,9 @@ fun AppBarTitle() {
 @Composable
 fun FeedScreen(
     navController: NavController,
+    feedViewModel: FeedViewModel = viewModel()
 ) {
+    val state = feedViewModel.state.value
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,
@@ -62,33 +66,14 @@ fun FeedScreen(
             }
         }
     ) {
-        val x = listOf(
-            Meal(
-                "Vanilla Pud",
-                R.drawable.feedimage2
-            ),
-            Meal(
-                "White Wine Toffee",
-                R.drawable.feedimage1
-            ),
-            Meal(
-                "Vanilla Pud",
-                R.drawable.feedimage2
-            ),
-            Meal(
-                "White Wine Toffee",
-                R.drawable.feedimage1
-            ),
-
-            )
         NavigationBarAvoidingBox() {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(20.dp),
             ) {
-                items(x) { meal ->
-                    FeedCard(name = meal.name, image = meal.image)
+                items(state.meals) { meal ->
+                    FeedCard(name = meal.name, image = meal.image, cookBooks = state.cookBooks)
                     Spacer(modifier = Modifier.height(16.dp))
                 }
             }

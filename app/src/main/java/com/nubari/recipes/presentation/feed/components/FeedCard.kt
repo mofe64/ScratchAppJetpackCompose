@@ -28,6 +28,7 @@ import com.skydoves.landscapist.glide.GlideImage
 fun FeedCard(
     name: String,
     image: Int,
+    cookBooks: List<String>
 ) {
     val openDialog = remember {
         mutableStateOf(false)
@@ -142,7 +143,7 @@ fun FeedCard(
     }
 
     if (openDialog.value) {
-        SaveFeedDialog {
+        SaveFeedDialog(cookBooks = cookBooks) {
             openDialog.value = false
         }
     }

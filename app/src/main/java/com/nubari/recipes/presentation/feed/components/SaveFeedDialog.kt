@@ -3,6 +3,8 @@ package com.nubari.recipes.presentation.feed.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun SaveFeedDialog(
+    cookBooks: List<String>,
     closeDialog: () -> Unit
 ) {
     val isPressed = remember {
@@ -46,101 +49,43 @@ fun SaveFeedDialog(
             }
         },
         text = {
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .pointerInput(Unit) {
-                            detectTapGestures(
-                                onPress = {
-                                    try {
-                                        isPressed.value = "Western"
-                                        awaitRelease()
-                                    } finally {
-                                        // Todo(run func to add to cookbook at this point)
-                                        isPressed.value = ""
+                items(cookBooks) { cookBook ->
+                    Box(
+                        modifier = Modifier
+                            .pointerInput(Unit) {
+                                detectTapGestures(
+                                    onPress = {
+                                        try {
+                                            isPressed.value = cookBook
+                                            awaitRelease()
+                                        } finally {
+                                            // Todo(run func to add to cookbook at this point)
+                                            isPressed.value = ""
+                                        }
                                     }
-                                }
-                            )
-                        }
-                        .background(
-                            color = if (isPressed.value == "Western")
-                                MaterialTheme.colors.secondary.copy(
-                                    alpha = .3f
-                                ) else Color.Transparent
+                                )
+                            }
+                            .clip(RoundedCornerShape(10))
+                            .background(
+                                color = if (isPressed.value == cookBook)
+                                    MaterialTheme.colors.secondary.copy(
+                                        alpha = .3f
+                                    ) else Color.Transparent
 
-                        )
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(20.dp))
-                        .padding(top = 10.dp, bottom = 10.dp)
-                ) {
-                    Text(text = "Western", fontSize = 15.sp)
-                }
-                Spacer(modifier = Modifier.height(5.dp))
-                Box(
-                    modifier = Modifier
-                        .pointerInput(Unit) {
-                            detectTapGestures(
-                                onPress = {
-                                    try {
-                                        isPressed.value = "Quick Lunch"
-                                        awaitRelease()
-                                    } finally {
-                                        // Todo(run func to add to cookbook at this point)
-                                        isPressed.value = ""
-                                    }
-                                }
                             )
-                        }
-                        .background(
-                            color = if (isPressed.value == "Quick Lunch")
-                                MaterialTheme.colors.secondary.copy(
-                                    alpha = .3f
-                                ) else Color.Transparent
+                            .fillMaxWidth()
+                            .padding(top = 10.dp, bottom = 10.dp)
+                    ) {
+                        Text(text = cookBook, fontSize = 15.sp)
+                    }
+                    Spacer(modifier = Modifier.height(5.dp))
 
-                        )
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(20.dp))
-                        .padding(top = 10.dp, bottom = 10.dp)
-                ) {
-                    Text(text = "Quick Lunch", fontSize = 15.sp)
                 }
-                Spacer(modifier = Modifier.height(5.dp))
-                Box(
-                    modifier = Modifier
-                        .pointerInput(Unit) {
-                            detectTapGestures(
-                                onPress = {
-                                    try {
-                                        isPressed.value = "Veggies"
-                                        awaitRelease()
-                                    } finally {
-                                        // Todo(run func to add to cookbook at this point)
-                                        isPressed.value = ""
-                                    }
-                                }
-                            )
-                        }
-                        .background(
-                            color = if (isPressed.value === "Veggies")
-                                MaterialTheme.colors.secondary.copy(
-                                    alpha = .3f
-                                ) else Color.Transparent
-
-                        )
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(20.dp))
-                        .padding(top = 10.dp, bottom = 10.dp)
-                ) {
-                    Text(
-                        text = "Veggies",
-                        fontSize = 15.sp,
-                    )
-                }
-//
             }
         },
         buttons = {
