@@ -15,7 +15,7 @@ fun NavigationHost(
 ) {
     NavHost(navController = navController, startDestination = BaseScreen.Feed.route) {
         composable(BaseScreen.Feed.route) {
-            FeedScreen()
+            FeedScreen(navController = navController)
         }
         composable(BaseScreen.Search.route) {
             SearchScreen()

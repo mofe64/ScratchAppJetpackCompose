@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -33,10 +34,9 @@ fun BottomNavigationBar(
             applyStart = true,
             applyTop = true,
             applyEnd = true
-        )
+        ),
+        elevation = 0.dp
     ) {
-        val insets = LocalWindowInsets.current
-        Log.i("insets-mine", insets.navigationBars.isVisible.toString())
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination
 
