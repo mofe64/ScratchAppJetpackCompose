@@ -4,11 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.nubari.recipes.presentation.feed.FeedScreen
-import com.nubari.recipes.presentation.profile.ProfileScreen
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.nubari.recipes.presentation.feed.screens.FeedScreen
+import com.nubari.recipes.presentation.profile.screens.ProfileScreen
 import com.nubari.recipes.presentation.search.SearchScreen
 import com.nubari.recipes.presentation.util.BaseScreen
 
+@ExperimentalPagerApi
 @Composable
 fun NavigationHost(
     navController: NavHostController
@@ -21,7 +23,7 @@ fun NavigationHost(
             SearchScreen()
         }
         composable(BaseScreen.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController = navController)
         }
     }
 }

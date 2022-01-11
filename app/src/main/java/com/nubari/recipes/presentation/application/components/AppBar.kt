@@ -1,5 +1,6 @@
 package com.nubari.recipes.presentation.application.components
 
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.Icon
@@ -9,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,18 +24,25 @@ import com.nubari.recipes.R
 
 @Composable
 fun MainAppBar(
+    modifier: Modifier = Modifier,
     navController: NavController,
-    title: @Composable () -> Unit,
+    title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
+        modifier = modifier,
         title = {
             title()
         },
-        navigationIcon = if (navController.previousBackStackEntry != null) {
+        navigationIcon = if (
+            navController.previousBackStackEntry != null &&
+            navController.previousBackStackEntry?.destination?.route.toString() != "feed"
+        ) {
             {
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Row() {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Back button"
