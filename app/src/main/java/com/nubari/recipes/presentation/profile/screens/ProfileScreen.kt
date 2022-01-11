@@ -1,7 +1,12 @@
 package com.nubari.recipes.presentation.profile.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -24,12 +29,15 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.nubari.recipes.R
+import com.nubari.recipes.domain.Meal
 import com.nubari.recipes.presentation.application.components.MainAppBar
+import com.nubari.recipes.presentation.components.MealImageTile
 import com.nubari.recipes.presentation.components.NavigationBarAvoidingBox
 import com.nubari.recipes.ui.theme.SubTextColor
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 
+@ExperimentalFoundationApi
 @ExperimentalPagerApi
 @Composable
 fun ProfileScreen(
@@ -187,19 +195,52 @@ fun ProfileScreen(
                         )
                     }
                 }
+                val meals = listOf(
+                    Meal(
+                        "Sweets",
+                        R.drawable.sweets
+                    ),
+                    Meal(
+                        "Italian",
+                        R.drawable.pizza
+                    ),
+                    Meal(
+                        "Deserts",
+                        R.drawable.strawberries
+                    ),
+                    Meal(
+                        "Fancy",
+                        R.drawable.feedimage2
+                    ),
+                    Meal(
+                        "Italian",
+                        R.drawable.pizza
+                    ),
+                    Meal(
+                        "Sweets",
+                        R.drawable.sweets
+                    ),
+                )
                 HorizontalPager(
                     count = tabData.size,
                     state = pagerState,
                     modifier = Modifier.weight(1f)
                 ) { index ->
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = tabData[index].first,
-                        )
+                    NavigationBarAvoidingBox {
+                        LazyVerticalGrid(
+                            cells = GridCells.Fixed(2),
+                            contentPadding = PaddingValues(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            items(meals) { meal ->
+                                MealImageTile(
+                                    name = meal.name,
+                                    image = meal.image,
+                                    modifier = Modifier.padding(10.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }

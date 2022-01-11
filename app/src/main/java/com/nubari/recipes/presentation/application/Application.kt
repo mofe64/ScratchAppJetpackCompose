@@ -1,5 +1,6 @@
 package com.nubari.recipes.presentation.application
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ui.Scaffold
@@ -8,6 +9,7 @@ import com.nubari.recipes.presentation.application.components.BottomNavigationBa
 import com.nubari.recipes.presentation.application.components.MainAppBar
 import com.nubari.recipes.presentation.components.NavigationHost
 
+@ExperimentalFoundationApi
 @ExperimentalPagerApi
 @Composable
 fun RecipeApplication() {

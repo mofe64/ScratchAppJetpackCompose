@@ -1,5 +1,6 @@
 package com.nubari.recipes.presentation.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -10,6 +11,7 @@ import com.nubari.recipes.presentation.profile.screens.ProfileScreen
 import com.nubari.recipes.presentation.search.SearchScreen
 import com.nubari.recipes.presentation.util.BaseScreen
 
+@ExperimentalFoundationApi
 @ExperimentalPagerApi
 @Composable
 fun NavigationHost(
