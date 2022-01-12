@@ -1,6 +1,6 @@
 package com.nubari.recipes.domain
 
-data class Meal(
+data class Recipe(
     val name: String,
     val image: Int,
 )

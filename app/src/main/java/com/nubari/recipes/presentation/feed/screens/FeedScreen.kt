@@ -63,7 +63,7 @@ fun FeedScreen(
                     .fillMaxSize()
                     .padding(20.dp),
             ) {
-                items(state.meals) { meal ->
+                items(state.recipes) { meal ->
                     FeedCard(name = meal.name, image = meal.image, cookBooks = state.cookBooks)
                     Spacer(modifier = Modifier.height(16.dp))
                 }

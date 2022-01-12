@@ -23,7 +23,7 @@ fun MealImageTile(
     image: Int,
 ) {
     Card(
-        modifier = Modifier.height(180.dp),
+        modifier = modifier.height(180.dp),
         shape = RoundedCornerShape(10)
     ) {
         Column(

@@ -2,9 +2,9 @@ package com.nubari.recipes.presentation.profile.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -23,16 +23,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import com.nubari.recipes.R
-import com.nubari.recipes.domain.Meal
 import com.nubari.recipes.presentation.application.components.MainAppBar
 import com.nubari.recipes.presentation.components.MealImageTile
 import com.nubari.recipes.presentation.components.NavigationBarAvoidingBox
+import com.nubari.recipes.presentation.profile.viewmodels.ProfileViewModel
+import com.nubari.recipes.presentation.util.Screen
 import com.nubari.recipes.ui.theme.SubTextColor
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
@@ -42,7 +44,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun ProfileScreen(
     navController: NavController,
+    profileViewModel: ProfileViewModel = viewModel()
 ) {
+    val state = profileViewModel.state.value
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,
@@ -136,9 +140,9 @@ fun ProfileScreen(
                     )
             )
             val tabData = listOf(
-                "Recipes" to 20,
-                "Saved" to 75,
-                "Following" to 248,
+                "Recipes" to state.myRecipes.size,
+                "Saved" to state.savedRecipes.size,
+                "Following" to state.followers.size,
             )
             val pagerState = rememberPagerState(
                 initialPage = 0,
@@ -195,32 +199,6 @@ fun ProfileScreen(
                         )
                     }
                 }
-                val meals = listOf(
-                    Meal(
-                        "Sweets",
-                        R.drawable.sweets
-                    ),
-                    Meal(
-                        "Italian",
-                        R.drawable.pizza
-                    ),
-                    Meal(
-                        "Deserts",
-                        R.drawable.strawberries
-                    ),
-                    Meal(
-                        "Fancy",
-                        R.drawable.feedimage2
-                    ),
-                    Meal(
-                        "Italian",
-                        R.drawable.pizza
-                    ),
-                    Meal(
-                        "Sweets",
-                        R.drawable.sweets
-                    ),
-                )
                 HorizontalPager(
                     count = tabData.size,
                     state = pagerState,
@@ -233,13 +211,36 @@ fun ProfileScreen(
                             verticalArrangement = Arrangement.spacedBy(10.dp),
                             horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            items(meals) { meal ->
-                                MealImageTile(
-                                    name = meal.name,
-                                    image = meal.image,
-                                    modifier = Modifier.padding(10.dp)
-                                )
+                            when (index) {
+                                0 -> {
+                                    items(state.myRecipes) { recipe ->
+                                        MealImageTile(
+                                            name = recipe.name,
+                                            image = recipe.image,
+                                            modifier = Modifier.clickable {
+                                                navController
+                                                    .navigate(
+                                                     route=Screen.MyRecipesScreen.route +"?category=${recipe.name}"
+                                                    )
+                                            }
+                                        )
+                                    }
+                                }
+                                1 -> {
+                                    items(state.savedRecipes) { recipe ->
+                                        MealImageTile(
+                                            name = recipe.name,
+                                            image = recipe.image,
+                                        )
+                                    }
+                                }
+                                2 -> {
+                                    items(state.followers) { follower ->
+                                        Text(text = follower)
+                                    }
+                                }
                             }
+
                         }
                     }
                 }

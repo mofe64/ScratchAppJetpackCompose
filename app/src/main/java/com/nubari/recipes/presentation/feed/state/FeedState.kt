@@ -1,23 +1,23 @@
 package com.nubari.recipes.presentation.feed.state
 
 import com.nubari.recipes.R
-import com.nubari.recipes.domain.Meal
+import com.nubari.recipes.domain.Recipe
 
 data class FeedState(
-    val meals: List<Meal> = listOf(
-        Meal(
+    val recipes: List<Recipe> = listOf(
+        Recipe(
             "Vanilla Pud",
             R.drawable.feedimage2
         ),
-        Meal(
+        Recipe(
             "White Wine Toffee",
             R.drawable.feedimage1
         ),
-        Meal(
+        Recipe(
             "Vanilla Pud",
             R.drawable.feedimage2
         ),
-        Meal(
+        Recipe(
             "White Wine Toffee",
             R.drawable.feedimage1
         ),

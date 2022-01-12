@@ -1,6 +1,6 @@
 package com.nubari.recipes.presentation.util
 
 sealed class Screen(val name: String, val route: String) {
-    object LoginScreen: Screen(name = "login", route = "login")
-    object RegisterScreen: Screen(name = "register", route = "register")
+    object MyRecipesScreen : Screen(name = "my recipes", route = "my_recipes")
+    object SavedRecipesScreen : Screen(name = "saved recipes", route = "saved_recipes")
 }

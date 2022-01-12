@@ -1,8 +1,7 @@
 package com.nubari.recipes.presentation.application.components
 
 import android.util.Log
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -21,6 +20,7 @@ import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.ui.TopAppBar
 import com.nubari.recipes.R
+import com.nubari.recipes.ui.theme.SubTextColor
 
 @Composable
 fun MainAppBar(
@@ -39,15 +39,22 @@ fun MainAppBar(
             navController.previousBackStackEntry?.destination?.route.toString() != "feed"
         ) {
             {
+                var previousScreen = ""
+                previousScreen = navController.previousBackStackEntry?.destination?.route.toString()
                 IconButton(onClick = { navController.navigateUp() }) {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center,
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = "Back button"
                         )
-                        Text(text = "back")
+                        Spacer(modifier = Modifier.width(15.dp))
+//                        Text(
+//                            text = if (previousScreen !== "") "Back to $previousScreen" else "Back"
+//                        )
+                        Text(text = "Back", color = SubTextColor)
                     }
                 }
             }
