@@ -31,6 +31,7 @@ import com.nubari.recipes.presentation.components.NavigationBarAvoidingBox
 import com.nubari.recipes.presentation.profile.components.RecipeCard
 import com.nubari.recipes.presentation.profile.events.RecipesEvents
 import com.nubari.recipes.presentation.profile.viewmodels.RecipesViewModel
+import com.nubari.recipes.presentation.util.Screen
 import com.nubari.recipes.ui.theme.SubTextColor
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -111,7 +112,14 @@ fun Recipes(
                 ) {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(state.recipes) { item: Recipe ->
-                            RecipeCard(recipe = item)
+                            RecipeCard(
+                                recipe = item, navigationFunc = {
+                                    navController
+                                        .navigate(
+                                            route = Screen.RecipeDetailScreen.route
+                                        )
+                                }
+                            )
                             Spacer(modifier = Modifier.height(16.dp))
                         }
                     }

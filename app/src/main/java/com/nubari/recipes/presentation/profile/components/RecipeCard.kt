@@ -20,7 +20,8 @@ import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun RecipeCard(
-    recipe: Recipe
+    recipe: Recipe,
+    navigationFunc: () -> Unit
 ) {
     Card(modifier = Modifier.height(250.dp)) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -69,7 +70,9 @@ fun RecipeCard(
                         Text(text = "4 Ingredients", color = SubTextColor)
                     }
                     OutlinedButton(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            navigationFunc()
+                        },
                         border = BorderStroke(1.dp, MaterialTheme.colors.primary)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {

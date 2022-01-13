@@ -26,8 +26,12 @@ import com.nubari.recipes.ui.theme.SubTextColor
 fun MainAppBar(
     modifier: Modifier = Modifier,
     navController: NavController,
+    backgroundColor: Color = Color.White,
+    backTextColor: Color = SubTextColor,
+    backIconColor: Color = Color.White,
     title: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
+
 ) {
     TopAppBar(
         modifier = modifier,
@@ -48,13 +52,14 @@ fun MainAppBar(
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
-                            contentDescription = "Back button"
+                            contentDescription = "Back button",
+                            tint = backIconColor
                         )
                         Spacer(modifier = Modifier.width(15.dp))
 //                        Text(
 //                            text = if (previousScreen !== "") "Back to $previousScreen" else "Back"
 //                        )
-                        Text(text = "Back", color = SubTextColor)
+                        Text(text = "Back", color = backTextColor)
                     }
                 }
             }
@@ -65,7 +70,7 @@ fun MainAppBar(
         actions = {
             actions()
         },
-        backgroundColor = Color.White,
+        backgroundColor = backgroundColor,
         contentColor = Color.Black,
         elevation = 0.dp,
         contentPadding = rememberInsetsPaddingValues(

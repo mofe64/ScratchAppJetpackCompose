@@ -12,6 +12,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.nubari.recipes.presentation.feed.screens.FeedScreen
 import com.nubari.recipes.presentation.profile.screens.Recipes
 import com.nubari.recipes.presentation.profile.screens.ProfileScreen
+import com.nubari.recipes.presentation.recipes.screens.RecipeDetail
 import com.nubari.recipes.presentation.search.SearchScreen
 import com.nubari.recipes.presentation.util.BaseScreen
 import com.nubari.recipes.presentation.util.Screen
@@ -35,6 +36,9 @@ fun NavigationHost(
         ) {
             composable(BaseScreen.Profile.route) {
                 ProfileScreen(navController = navController)
+            }
+            composable(Screen.RecipeDetailScreen.route) {
+                RecipeDetail(navController = navController)
             }
             composable(
                 route = Screen.MyRecipesScreen.route + "?category={category}",
